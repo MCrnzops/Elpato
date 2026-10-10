@@ -1,13 +1,13 @@
-import streamlit as st
+import streamlit as str_app
 from urllib.parse import quote
 
 # ============================================================
-# Gamarra Select — Marketplace de moda peruana
+# Vanguardia Peruana — Alta Manufactura de Gamarra
 # MVP en Streamlit
 # ============================================================
 
-st.set_page_config(
-    page_title="Gamarra Select | Moda peruana",
+str_app.set_page_config(
+    page_title="Vanguardia Peruana | Gamarra Select",
     page_icon="🇵🇪",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -16,7 +16,7 @@ st.set_page_config(
 # -----------------------------
 # ESTILOS
 # -----------------------------
-st.markdown("""
+str_app.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -43,18 +43,18 @@ st.markdown("""
     }
 
     .hero h1 {
-        font-size: clamp(42px, 6vw, 76px);
-        line-height: .98;
-        letter-spacing: -3px;
+        font-size: clamp(38px, 5.5vw, 70px);
+        line-height: 1.02;
+        letter-spacing: -2.5px;
         margin: 0 auto 18px auto;
-        max-width: 950px;
+        max-width: 980px;
         color: #111111;
         font-weight: 800;
     }
 
     .hero p {
         color: #5f5f5a;
-        max-width: 720px;
+        max-width: 760px;
         margin: auto;
         font-size: 18px;
         line-height: 1.6;
@@ -111,17 +111,6 @@ st.markdown("""
         font-weight: 800;
         color: #111;
         margin-top: 13px;
-    }
-
-    .tag {
-        display: inline-block;
-        border: 1px solid #deded9;
-        border-radius: 999px;
-        padding: 5px 9px;
-        margin: 3px 3px 3px 0;
-        color: #555;
-        font-size: 11px;
-        font-weight: 600;
     }
 
     .trust {
@@ -183,17 +172,16 @@ st.markdown("""
 
 # -----------------------------
 # DATOS DEMO
-# Reemplaza estos datos por datos reales cuando tengas proveedores.
 # -----------------------------
 EMPRESAS = [
     {
         "id": 1,
         "nombre": "Andes Studio",
-        "descripcion": "Taller peruano especializado en básicos premium y prendas urbanas.",
+        "descripcion": "Taller peruano especializado en básicos premium, alta durabilidad y diseño limpio.",
         "categoria": "Casual",
-        "materiales": ["Algodón peruano", "Jersey"],
+        "materiales": ["Algodón Pima", "Jersey pesado"],
         "ubicacion": "La Victoria, Lima",
-        "especialidad": "Básicos premium",
+        "especialidad": "Básicos de lujo",
         "whatsapp": "51999999999",
         "verificado": True,
         "productos": [
@@ -208,7 +196,7 @@ EMPRESAS = [
                 "nombre": "Boxy Tee Premium",
                 "categoria": "Polos",
                 "precio": 62,
-                "material": "Algodón peruano",
+                "material": "Algodón Pima",
                 "tendencia": "Boxy",
             },
         ],
@@ -216,7 +204,7 @@ EMPRESAS = [
     {
         "id": 2,
         "nombre": "Lima Norte Atelier",
-        "descripcion": "Fabricante de prendas contemporáneas con producción para marcas independientes.",
+        "descripcion": "Fabricante de prendas contemporáneas con acabados superiores a marcas de centros comerciales.",
         "categoria": "Contemporáneo",
         "materiales": ["Algodón", "French Terry"],
         "ubicacion": "Gamarra, Lima",
@@ -243,11 +231,11 @@ EMPRESAS = [
     {
         "id": 3,
         "nombre": "Sierra Cotton Co.",
-        "descripcion": "Productor enfocado en fibras peruanas y prendas casuales de mayor gramaje.",
+        "descripcion": "Enfocados en fibras nativas peruanas, superando en suavidad y calidad a marcas importadas masivas.",
         "categoria": "Premium",
-        "materiales": ["Algodón peruano", "Pima"],
+        "materiales": ["Algodón Pima Orgánico"],
         "ubicacion": "La Victoria, Lima",
-        "especialidad": "Algodón premium",
+        "especialidad": "Fibras nobles",
         "whatsapp": "51977777777",
         "verificado": False,
         "productos": [
@@ -259,7 +247,7 @@ EMPRESAS = [
                 "tendencia": "Minimal",
             },
             {
-                "nombre": "Pima Polo",
+                "nombre": "Pima Polo Piqué",
                 "categoria": "Polos",
                 "precio": 89,
                 "material": "Algodón Pima",
@@ -270,26 +258,26 @@ EMPRESAS = [
     {
         "id": 4,
         "nombre": "Distrito 43",
-        "descripcion": "Taller orientado a streetwear, cortes actuales y producción flexible.",
+        "descripcion": "Streetwear de autor con cortes vanguardistas que marcan tendencia real en el mercado local.",
         "categoria": "Streetwear",
-        "materiales": ["Jersey", "Drill"],
+        "materiales": ["Jersey", "Drill pesado"],
         "ubicacion": "Gamarra, Lima",
-        "especialidad": "Streetwear",
+        "especialidad": "Streetwear de alta gama",
         "whatsapp": "51966666666",
         "verificado": True,
         "productos": [
             {
-                "nombre": "Relaxed Cargo",
+                "nombre": "Relaxed Cargo Utility",
                 "categoria": "Pantalones",
                 "precio": 139,
                 "material": "Drill",
                 "tendencia": "Utility",
             },
             {
-                "nombre": "Zip Hoodie",
+                "nombre": "Zip Hoodie Heavyweight",
                 "categoria": "Poleras",
                 "precio": 149,
-                "material": "Algodón / French Terry",
+                "material": "French Terry",
                 "tendencia": "Layering",
             },
         ],
@@ -308,87 +296,87 @@ for empresa in EMPRESAS:
 # -----------------------------
 # ESTADO
 # -----------------------------
-if "empresa_seleccionada" not in st.session_state:
-    st.session_state.empresa_seleccionada = None
+if "empresa_seleccionada" not in str_app.session_state:
+    str_app.session_state.empresa_seleccionada = None
 
-if "pagina" not in st.session_state:
-    st.session_state.pagina = "Inicio"
+if "pagina" not in str_app.session_state:
+    str_app.session_state.pagina = "Inicio"
 
 
 # -----------------------------
 # NAVBAR
 # -----------------------------
-nav1, nav2, nav3, nav4 = st.columns([2.4, 1, 1, 1])
+nav1, nav2, nav3, nav4 = str_app.columns([2.4, 1, 1, 1])
 
 with nav1:
-    st.markdown("### 🇵🇪 GAMARRA SELECT")
+    str_app.markdown("### 🇵🇪 VANGUARDIA PERUANA")
 
 with nav2:
-    if st.button("Descubrir", use_container_width=True):
-        st.session_state.pagina = "Descubrir"
+    if str_app.button("Descubrir", use_container_width=True):
+        str_app.session_state.pagina = "Descubrir"
 
 with nav3:
-    if st.button("Empresas", use_container_width=True):
-        st.session_state.pagina = "Empresas"
+    if str_app.button("Talleres", use_container_width=True):
+        str_app.session_state.pagina = "Empresas"
 
 with nav4:
-    if st.button("Para empresas", use_container_width=True):
-        st.session_state.pagina = "Para empresas"
+    if str_app.button("Para Marcas", use_container_width=True):
+        str_app.session_state.pagina = "Para empresas"
 
 
 # ============================================================
 # INICIO
 # ============================================================
-if st.session_state.pagina == "Inicio":
+if str_app.session_state.pagina == "Inicio":
 
-    st.markdown("""
+    str_app.markdown("""
     <div class="hero">
-        <div class="eyebrow">HECHO EN PERÚ · CURADO PARA TI</div>
-        <h1>Descubre el talento de Gamarra sin tener que ir a Gamarra.</h1>
+        <div class="eyebrow">ALTA MANFACTURA NACIONAL · DISEÑO SIN INTERMEDIARIOS</div>
+        <h1>El verdadero lujo es vestir mejor con lo mejor del Perú.</h1>
         <p>
-            Conectamos compradores con fabricantes y marcas peruanas que crean
-            prendas actuales, materiales de calidad y producción local.
+            Conectamos directamente a compradores exigentes con los mejores talleres y creadores 
+            de Gamarra. Prendas con mejores materiales, cortes en tendencia y sin pagar sobreprecios de centro comercial.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    c1, c2, c3 = st.columns(3)
+    c1, c2, c3 = str_app.columns(3)
 
     with c1:
-        st.markdown("""
+        str_app.markdown("""
         <div class="metric-box">
-            <div class="metric-number">100%</div>
-            <div class="metric-label">Producción local en el marketplace</div>
+            <div class="metric-number">Algodón Pima</div>
+            <div class="metric-label">Y materias primas de clase mundial</div>
         </div>
         """, unsafe_allow_html=True)
 
     with c2:
-        st.markdown("""
+        str_app.markdown("""
         <div class="metric-box">
-            <div class="metric-number">Directo</div>
-            <div class="metric-label">Conexión con el proveedor</div>
+            <div class="metric-number">Sin Colas</div>
+            <div class="metric-label">Compra directo desde la comodidad de casa</div>
         </div>
         """, unsafe_allow_html=True)
 
     with c3:
-        st.markdown("""
+        str_app.markdown("""
         <div class="metric-box">
-            <div class="metric-number">Actual</div>
-            <div class="metric-label">Prendas alineadas a tendencias</div>
+            <div class="metric-number">B2B & Directo</div>
+            <div class="metric-label">Conexión exclusiva vía WhatsApp con talleres</div>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">Lo que está moviendo la moda local</div>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="section-subtitle">Una selección inicial de prendas y fabricantes.</div>',
+    str_app.markdown('<div class="section-title">Destacados de la semana</div>', unsafe_allow_html=True)
+    str_app.markdown(
+        '<div class="section-subtitle">Piezas clave hechas en talleres peruanos de alta gama.</div>',
         unsafe_allow_html=True
     )
 
-    cols = st.columns(3)
+    cols = str_app.columns(3)
 
     for i, producto in enumerate(TODOS_PRODUCTOS[:3]):
         with cols[i]:
-            st.markdown(f"""
+            str_app.markdown(f"""
             <div class="product-card">
                 <span class="badge">{producto["tendencia"]}</span>
                 <div class="product-name">{producto["nombre"]}</div>
@@ -400,65 +388,64 @@ if st.session_state.pagina == "Inicio":
             </div>
             """, unsafe_allow_html=True)
 
-    st.write("")
-    if st.button("Explorar todo el catálogo →", type="primary"):
-        st.session_state.pagina = "Descubrir"
-        st.rerun()
+    str_app.write("")
+    if str_app.button("Explorar todo el catálogo →", type="primary"):
+        str_app.session_state.pagina = "Descubrir"
+        str_app.rerun()
 
-    st.markdown("""
+    str_app.markdown("""
     <div class="trust">
-        <h2>El valor está en conectar.</h2>
+        <h2>¿Por qué elegir producción peruana local frente a marcas extranjeras masivas?</h2>
         <p>
-            Gamarra concentra conocimiento, manufactura y proveedores que muchas
-            veces no son fáciles de descubrir desde fuera. Esta plataforma busca
-            convertir ese ecosistema en una experiencia digital: descubrir,
-            comparar y contactar.
+            Mientras que marcas de fast-fashion importadas cobran precios elevados por plásticos y etiquetas de marketing, 
+            la industria local de Gamarra utiliza el codiciado algodón peruano, ofrece acabados impecables y se adapta 
+            ágilmente a las nuevas tendencias globales. Es hora de valorar lo nuestro.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">¿Qué hace diferente a la plataforma?</div>', unsafe_allow_html=True)
+    str_app.markdown('<div class="section-title">¿Cómo funciona?</div>', unsafe_allow_html=True)
 
-    a, b, c = st.columns(3)
+    a, b, c = str_app.columns(3)
 
     with a:
-        st.markdown("### 01 · Descubrimiento")
-        st.write("Encuentra empresas y prendas sin recorrer físicamente cientos de tiendas.")
+        str_app.markdown("### 01 · Explora sin ir")
+        str_app.write("Visualiza las mejores colecciones y prendas de Gamarra desde tu dispositivo.")
 
     with b:
-        st.markdown("### 02 · Curaduría")
-        st.write("Una vitrina enfocada en calidad, materiales, cortes y tendencias.")
+        str_app.markdown("### 02 · Calidad Superior")
+        str_app.write("Comprueba materiales nobles como el algodón Pima y French Terry de exportación.")
 
     with c:
-        st.markdown("### 03 · Conexión")
-        st.write("Habla directamente con el vendedor y solicita información o pedidos.")
+        str_app.markdown("### 03 · Conexión Directa")
+        str_app.write("Cierra tu pedido o consulta tallas directamente con el fabricante por WhatsApp.")
 
 
 # ============================================================
 # DESCUBRIR
 # ============================================================
-elif st.session_state.pagina == "Descubrir":
+elif str_app.session_state.pagina == "Descubrir":
 
-    st.markdown('<div class="section-title">Descubre prendas</div>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="section-subtitle">Explora productos de fabricantes y marcas peruanas.</div>',
+    str_app.markdown('<div class="section-title">Catálogo Exclusivo</div>', unsafe_allow_html=True)
+    str_app.markdown(
+        '<div class="section-subtitle">Filtra y encuentra piezas de nivel superior hechas en Perú.</div>',
         unsafe_allow_html=True
     )
 
-    col_search, col_cat, col_price = st.columns([2, 1, 1])
+    col_search, col_cat, col_price = str_app.columns([2, 1, 1])
 
     with col_search:
-        busqueda = st.text_input(
+        busqueda = str_app.text_input(
             "Buscar",
-            placeholder="Ej. polo oversized, algodón Pima..."
+            placeholder="Ej. polo oversized, Pima, hoodie..."
         )
 
     with col_cat:
         categorias = ["Todas"] + sorted(list(set(p["categoria"] for p in TODOS_PRODUCTOS)))
-        categoria = st.selectbox("Categoría", categorias)
+        categoria = str_app.selectbox("Categoría", categorias)
 
     with col_price:
-        precio_max = st.slider("Precio máximo", 30, 250, 180, 10)
+        precio_max = str_app.slider("Precio máximo (S/)", 30, 250, 180, 10)
 
     resultados = TODOS_PRODUCTOS.copy()
 
@@ -477,18 +464,18 @@ elif st.session_state.pagina == "Descubrir":
 
     resultados = [p for p in resultados if p["precio"] <= precio_max]
 
-    st.caption(f"{len(resultados)} prendas encontradas")
+    str_app.caption(f"{len(resultados)} prendas disponibles")
 
     if not resultados:
-        st.info("No encontramos prendas con esos filtros. Prueba otra búsqueda.")
+        str_app.info("No encontramos prendas con esos filtros. Intenta con otros términos.")
     else:
         for inicio in range(0, len(resultados), 3):
             fila = resultados[inicio:inicio + 3]
-            cols = st.columns(3)
+            cols = str_app.columns(3)
 
             for i, producto in enumerate(fila):
                 with cols[i]:
-                    st.markdown(f"""
+                    str_app.markdown(f"""
                     <div class="product-card">
                         <span class="badge">{producto["tendencia"]}</span>
                         <div class="product-name">{producto["nombre"]}</div>
@@ -501,8 +488,8 @@ elif st.session_state.pagina == "Descubrir":
                     </div>
                     """, unsafe_allow_html=True)
 
-                    if st.button(
-                        f"Contactar por {producto['nombre']}",
+                    if str_app.button(
+                        f"Pedir {producto['nombre']}",
                         key=f"contact_{producto['empresa_id']}_{producto['nombre']}",
                         use_container_width=True
                     ):
@@ -510,29 +497,29 @@ elif st.session_state.pagina == "Descubrir":
                             e for e in EMPRESAS if e["id"] == producto["empresa_id"]
                         )
                         mensaje = quote(
-                            f"Hola, vi en Gamarra Select la prenda "
+                            f"Hola, vi en Vanguardia Peruana la prenda "
                             f"'{producto['nombre']}' de {empresa['nombre']} y quisiera "
-                            f"más información."
+                            f"coordinar talla y envío."
                         )
                         url = f"https://wa.me/{empresa['whatsapp']}?text={mensaje}"
-                        st.markdown(
-                            f"**[Abrir WhatsApp con {empresa['nombre']}]({url})**"
+                        str_app.markdown(
+                            f"**[💬 Abrir WhatsApp con {empresa['nombre']}]({url})**"
                         )
 
 
 # ============================================================
 # EMPRESAS
 # ============================================================
-elif st.session_state.pagina == "Empresas":
+elif str_app.session_state.pagina == "Empresas":
 
-    st.markdown('<div class="section-title">Empresas y fabricantes</div>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="section-subtitle">Conoce quién está detrás de cada prenda.</div>',
+    str_app.markdown('<div class="section-title">Talleres y Marcas Aliadas</div>', unsafe_allow_html=True)
+    str_app.markdown(
+        '<div class="section-subtitle">Conoce a los creadores detrás de la alta costura y confección peruana.</div>',
         unsafe_allow_html=True
     )
 
-    filtro = st.selectbox(
-        "Filtrar por especialidad",
+    filtro = str_app.selectbox(
+        "Filtrar por estilo",
         ["Todas"] + sorted(list(set(e["categoria"] for e in EMPRESAS)))
     )
 
@@ -541,28 +528,28 @@ elif st.session_state.pagina == "Empresas":
     ]
 
     for empresa in empresas:
-        st.markdown(f"""
+        str_app.markdown(f"""
         <div class="company-card">
             <span class="badge">
-                {"✓ VERIFICADO" if empresa["verificado"] else "NUEVO PROVEEDOR"}
+                {"✓ TALLER VERIFICADO" if empresa["verificado"] else "NUEVO ALIADO"}
             </span>
             <div class="company-name">{empresa["nombre"]}</div>
             <div class="company-meta">
                 {empresa["descripcion"]}<br><br>
                 <b>Especialidad:</b> {empresa["especialidad"]}<br>
                 <b>Ubicación:</b> {empresa["ubicacion"]}<br>
-                <b>Materiales:</b> {", ".join(empresa["materiales"])}
+                <b>Materiales clave:</b> {", ".join(empresa["materiales"])}
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-        st.write("")
+        str_app.write("")
 
-        pcols = st.columns(len(empresa["productos"]))
+        pcols = str_app.columns(len(empresa["productos"]))
 
         for i, producto in enumerate(empresa["productos"]):
             with pcols[i]:
-                st.markdown(f"""
+                str_app.markdown(f"""
                 **{producto["nombre"]}**
 
                 {producto["material"]}
@@ -571,92 +558,86 @@ elif st.session_state.pagina == "Empresas":
                 """)
 
         mensaje = quote(
-            f"Hola, encontré {empresa['nombre']} en Gamarra Select y quisiera "
-            f"conocer más sobre sus productos."
+            f"Hola, encontré a {empresa['nombre']} en Vanguardia Peruana y me interesa conocer más su catálogo."
         )
         url = f"https://wa.me/{empresa['whatsapp']}?text={mensaje}"
 
-        st.markdown(f"[💬 Contactar a {empresa['nombre']} por WhatsApp]({url})")
-        st.divider()
+        str_app.markdown(f"[💬 Contactar directamente a {empresa['nombre']} por WhatsApp]({url})")
+        str_app.divider()
 
 
 # ============================================================
 # PARA EMPRESAS
 # ============================================================
-elif st.session_state.pagina == "Para empresas":
+elif str_app.session_state.pagina == "Para empresas":
 
-    st.markdown('<div class="section-title">Lleva tu negocio al mundo digital.</div>', unsafe_allow_html=True)
-    st.markdown(
+    str_app.markdown('<div class="section-title">Únete a la plataforma</div>', unsafe_allow_html=True)
+    str_app.markdown(
         '<div class="section-subtitle">'
-        'Una vitrina para que compradores encuentren tus productos sin tener que visitar tu tienda.'
+        'Lleva tu taller o marca de Gamarra directamente hacia clientes que valoran la calidad y pagan lo justo.'
         '</div>',
         unsafe_allow_html=True
     )
 
-    a, b = st.columns(2)
+    a, b = str_app.columns(2)
 
     with a:
-        st.markdown("""
-        ### ¿Qué obtiene tu empresa?
+        str_app.markdown("""
+        ### Beneficios para tu negocio
 
-        - Perfil digital de tu negocio
-        - Catálogo de productos
-        - Presentación de materiales y especialidades
-        - Contacto directo con compradores
-        - Mayor visibilidad fuera de Gamarra
-        - Presencia frente a clientes que buscan propuestas diferentes
+        - Vitrina digital profesional sin intermediarios
+        - Conexión directa B2B y B2C con compradores de nivel socioeconómico alto
+        - Mayor rentabilidad al posicionar tu marca propia
+        - Exposición de tus materiales y especialidades de costura
+        - Ventas ágiles mediante enlace directo a WhatsApp
         """)
 
     with b:
-        st.markdown("""
-        ### ¿Qué buscamos?
+        str_app.markdown("""
+        ### Requisitos para postular
 
-        **Fabricantes y marcas peruanas que:**
+        **Buscamos talleres y marcas que:**
 
-        - Produzcan localmente
-        - Tengan prendas de calidad
-        - Sean capaces de mostrar catálogo
-        - Respondan consultas de compradores
-        - Quieran crecer más allá del tráfico físico
+        - Fabriquen localmente en Gamarra / Lima
+        - Utilicen insumos de alta calidad (Algodón Pima, Jersey pesado, etc.)
+        - Cuenten con fotos o catálogo claro de sus prendas
+        - Brinden atención rápida y profesional a consultas
         """)
 
-    st.write("")
-    st.markdown("### Cuéntanos sobre tu empresa")
+    str_app.write("")
+    str_app.markdown("### Registro de Taller o Marca")
 
-    with st.form("empresa_form"):
-        nombre = st.text_input("Nombre de la empresa")
-        contacto = st.text_input("Nombre de contacto")
-        whatsapp = st.text_input("WhatsApp")
-        especialidad = st.selectbox(
-            "Especialidad",
-            ["Polos", "Poleras", "Pantalones", "Streetwear", "Moda femenina",
-             "Moda masculina", "Premium", "Otro"]
+    with str_app.form("empresa_form"):
+        nombre = str_app.text_input("Nombre de la marca o taller")
+        contacto = str_app.text_input("Persona de contacto")
+        whatsapp = str_app.text_input("Número de WhatsApp comercial")
+        especialidad = str_app.selectbox(
+            "Especialidad principal",
+            ["Polos y Básico", "Poleras y Hoodies", "Pantalones / Drill", "Streetwear", "Moda Casual", "Premium Pima"]
         )
-        descripcion = st.text_area("Cuéntanos qué produces")
+        descripcion = str_app.text_area("Cuéntanos brevemente qué tipo de prendas produces y qué los diferencia")
 
-        enviar = st.form_submit_button(
-            "Enviar solicitud",
+        enviar = str_app.form_submit_button(
+            "Enviar postulación",
             type="primary",
             use_container_width=True
         )
 
         if enviar:
             if not nombre or not contacto or not whatsapp:
-                st.error("Completa nombre, contacto y WhatsApp.")
+                str_app.error("Por favor completa los campos obligatorios (Nombre, Contacto y WhatsApp).")
             else:
-                st.success(
-                    "Solicitud registrada en este MVP. "
-                    "En la versión productiva estos datos se guardarían en una base de datos."
+                str_app.success(
+                    "¡Solicitud recibida con éxito! En la versión en producción, estos datos se sincronizarán con tu base de datos."
                 )
 
 
 # -----------------------------
 # FOOTER
 # -----------------------------
-st.markdown("""
+str_app.markdown("""
 <div class="footer">
-    <b>Gamarra Select</b> · Marketplace de moda y manufactura peruana<br>
-    MVP conceptual · Los datos mostrados son de demostración.
+    <b>Vanguardia Peruana</b> · Conectando la alta manufactura de Gamarra con el cliente exigente<br>
+    MVP de Streamlit · Hecho en Perú 🇵🇪
 </div>
 """, unsafe_allow_html=True)
-
